@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import java.lang.InterruptedException;
 
 public class MainActivity extends AppCompatActivity {
     private LayoutInflater layoutInflater;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private Button Right;
     private ImageView playerIcon;
     private ImageView bulletIcon;
+    private Thread calculateThread;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,13 +37,13 @@ public class MainActivity extends AppCompatActivity {
 
         //SET LISTENER EVENT
         startBtn.setOnClickListener(startGame);
-
-
+        createBullet();
     }
 
     private final View.OnClickListener startGame = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            calculateThread = new Thread(calculateAction);
             setContentView(R.layout.game);
             Left = findViewById(R.id.leftBtn);
             Right = findViewById(R.id.rightBtn);
@@ -77,23 +79,26 @@ public class MainActivity extends AppCompatActivity {
             myLayout.addView(playerIcon, 0);
 
             //BULLET
-            bulletIcon = (ImageView) layoutInflater.inflate(R.layout.bullet, null);
-            bulletIcon.setX(player.posX);
-            bulletIcon.setY(player.posY);
-            myLayout.addView(bulletIcon,1);
+
 
             //MOVING BULLET
-            for (int i = 0; i<=20; i++) {
-                if (bullet.onScreen == true) {
-                    bulletIcon.setY(bullet.move(bulletIcon.getY()));
-                }
-            }
+
 
             //SET LISTENER EVENTS
             Left.setOnClickListener(moveLeft);
             Right.setOnClickListener(moveRight);
         }
     };
+    public void createBullet(){
+        bulletIcon = (ImageView) layoutInflater.inflate(R.layout.bullet, null);
+
+        myLayout.addView(bulletIcon,1);
+    }
+    @Override
+    protected void onResume() {
+        calculateThread.start();
+        super.onResume();
+    }
 
     //MOVE PLAYER LEFT
     private final View.OnClickListener moveLeft = new View.OnClickListener() {
@@ -113,6 +118,24 @@ public class MainActivity extends AppCompatActivity {
             bullet.setPlayerX(player.posX);
         }
     };
+    //**********************************Thread*********************************
+    private Runnable calculateAction = new Runnable(){
+         private static final int DELAY = 100;
 
+         public void run() {
+             while(bullet.onScreen == true) {
+                 bullet.move(bullet.posY);
+                 threadHandler.sendEmptyMessage(0);
+             }
+         }
+    };
+
+    //*****************Handler****************************
+    public Handler threadHandler = new Handler() {
+        public void handleMessage(android.os.Message msg){
+            //bulletIcon.setX(player.posX);
+            bulletIcon.setY(bullet.posY);
+        }
+    };
 
 }
