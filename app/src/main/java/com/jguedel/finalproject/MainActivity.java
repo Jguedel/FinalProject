@@ -37,13 +37,11 @@ public class MainActivity extends AppCompatActivity {
 
         //SET LISTENER EVENT
         startBtn.setOnClickListener(startGame);
-        createBullet();
     }
 
     private final View.OnClickListener startGame = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            calculateThread = new Thread(calculateAction);
             setContentView(R.layout.game);
             Left = findViewById(R.id.leftBtn);
             Right = findViewById(R.id.rightBtn);
@@ -79,23 +77,21 @@ public class MainActivity extends AppCompatActivity {
             myLayout.addView(playerIcon, 0);
 
             //BULLET
-
-
-            //MOVING BULLET
-
+            createBullet();
 
             //SET LISTENER EVENTS
             Left.setOnClickListener(moveLeft);
             Right.setOnClickListener(moveRight);
+            calculateThread = new Thread(calculateAction);
+            start();
         }
     };
     public void createBullet(){
         bulletIcon = (ImageView) layoutInflater.inflate(R.layout.bullet, null);
-
         myLayout.addView(bulletIcon,1);
     }
-    @Override
-    protected void onResume() {
+
+    protected void start() {
         calculateThread.start();
         super.onResume();
     }
@@ -123,9 +119,15 @@ public class MainActivity extends AppCompatActivity {
          private static final int DELAY = 100;
 
          public void run() {
-             while(bullet.onScreen == true) {
-                 bullet.move(bullet.posY);
-                 threadHandler.sendEmptyMessage(0);
+             try {
+                 while(true) {
+                     bullet.move(bullet.posY);
+                     Thread.sleep(10);
+                     threadHandler.sendEmptyMessage(0);
+                 }
+             }
+             catch (InterruptedException e){
+                 e.printStackTrace();
              }
          }
     };
@@ -133,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
     //*****************Handler****************************
     public Handler threadHandler = new Handler() {
         public void handleMessage(android.os.Message msg){
-            //bulletIcon.setX(player.posX);
+            bulletIcon.setX(player.posX);
             bulletIcon.setY(bullet.posY);
         }
     };

@@ -9,7 +9,7 @@ public class Bullet {
 
     public Bullet(){
         onScreen = true;
-        playerY = 1050;
+        playerY = 950;
         playerX = 350;
 
     }
