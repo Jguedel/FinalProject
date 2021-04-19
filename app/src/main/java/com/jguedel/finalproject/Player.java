@@ -1,6 +1,7 @@
 package com.jguedel.finalproject;
 
 
+import android.util.Log;
 
 public class Player {
     public float scaleX;
@@ -11,12 +12,12 @@ public class Player {
     public Player(){
         scaleX=5;
         scaleY=5;
-        posX=500;
-        posY=1200;
+        posX=350;
+        posY=1050;
     }
 
-    public int setX(int pos){
-        posX = pos;
-        return posX;
+    public void move(int dest){
+        posX += dest;
+        Log.d("TAG", "posX: " + posX);
     }
 }

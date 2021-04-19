@@ -19,4 +19,37 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="273dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="105dp"
+        android:gravity="center"
+        android:text="Space Invaders"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/Gold"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textView1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="273dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="88dp"
+        android:gravity="center"
+        android:text="The Poo Years"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/Gold"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/startBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

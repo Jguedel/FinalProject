@@ -7,19 +7,8 @@
     android:layout_height="match_parent"
     android:background="@mipmap/background">
 
-    <ImageView
-        android:id="@+id/ship"
-        android:layout_width="70dp"
-        android:layout_height="79dp"
-        android:layout_marginBottom="64dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@mipmap/ship" />
-
     <Button
-        android:id="@+id/rightBtn"
+        android:id="@+id/leftBtn"
         android:layout_width="47dp"
         android:layout_height="49dp"
         android:layout_marginStart="18dp"
@@ -33,7 +22,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/leftBtn"
+        android:id="@+id/rightBtn"
         android:layout_width="47dp"
         android:layout_height="49dp"
         android:layout_marginEnd="16dp"
