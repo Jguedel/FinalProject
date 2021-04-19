@@ -7,13 +7,22 @@ public class Alien {
     public int posY;
     public boolean alive;
 
-    public Alien() {
-        alive = true;
-        scaleX=4;
-        scaleY=4;
-        posX=100;
-        posY=100;
+    public Alien(int x, int y) {
+        this.alive = true;
+        this.scaleX=4;
+        this.scaleY=4;
+        this.posX = x;
+        this.posY = y;
     }
+
+    /*
+    public void setPosX(int x){
+        this.posX = x;
+    }
+    public void  setPosY(int y){
+        this.posY = y;
+    }
+     */
     public float getposX(int i) {
         float X = posX * i;
         return X;
