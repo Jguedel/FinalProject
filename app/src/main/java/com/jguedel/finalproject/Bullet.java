@@ -1,7 +1,7 @@
 package com.jguedel.finalproject;
 
 public class Bullet {
-    public int posX;
+    public float posX;
     public float posY;
     public boolean onScreen;
     public float playerX;
@@ -26,6 +26,8 @@ public class Bullet {
         posY = y - 10;
         if (posY<=-200){
             posY = playerY;
+            posX = playerX;
+            onScreen = false;
         }
         return posY;
     }

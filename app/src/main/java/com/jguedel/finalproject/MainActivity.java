@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -114,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
             bullet.setPlayerX(player.posX);
         }
     };
+
     //**********************************Thread*********************************
     private Runnable calculateAction = new Runnable(){
          private static final int DELAY = 100;
@@ -135,8 +137,11 @@ public class MainActivity extends AppCompatActivity {
     //*****************Handler****************************
     public Handler threadHandler = new Handler() {
         public void handleMessage(android.os.Message msg){
-            bulletIcon.setX(player.posX);
             bulletIcon.setY(bullet.posY);
+            if (bullet.onScreen == false){
+                bulletIcon.setX(bullet.posX);
+                bullet.setOnScreen(true);
+            }
         }
     };
 

@@ -18,6 +18,5 @@ public class Player {
 
     public void move(int dest){
         posX += dest;
-        Log.d("TAG", "posX: " + posX);
     }
 }
