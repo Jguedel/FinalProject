@@ -101,11 +101,23 @@ public class MainActivity extends AppCompatActivity {
     private void createAliens(){
         alienArr = new ArrayList();
         //TOP ROW
+        int j = 6;
         for (int i = 1; i<=6; i++) {
-            alienArr.add(new Alien(100*i,100));
-            alienArr.add(new Alien(100*i,200));
+            String name1 = Integer.toString(i);
+            alienArr.add(new Alien(100*i,100, name1));
+            String name2 = Integer.toString(j);
+            alienArr.add(new Alien(100*i,200,name2));
+            j++;
         }
+        int z = 0;
         for (Alien alien: alienArr) {
+            //String name = "alienIcon" + Integer.toString(z);
+            ImageView alienIcon = (ImageView) layoutInflater.inflate(R.layout.alien, null);
+            alienIcon.setScaleY(alien.scaleY);
+            alienIcon.setScaleX(alien.scaleX);
+            alienIcon.setX(alien.posX);
+            alienIcon.setY(alien.posY);
+            myLayout.addView(alienIcon, 0);
             Log.d("TAG", "createAliens: " + alien.posX);
         }
     }
@@ -164,6 +176,13 @@ public class MainActivity extends AppCompatActivity {
             if (bullet.onScreen == false){
                 bulletIcon.setX(bullet.posX);
                 bullet.setOnScreen(true);
+            }
+            for(Alien alien: alienArr){
+                if(bullet.posX <= alien.posX+10 && bullet.posX >= alien.posX-10){
+                    if(bullet.posY <= alien.posX+10 && bullet.posX >= alien.posX-10){
+                        alienArr.remove(alien);
+                    }
+                }
             }
         }
     };
