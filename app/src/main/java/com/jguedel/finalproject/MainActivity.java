@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private Button Right;
     private ImageView playerIcon;
     private ImageView bulletIcon;
+    private ImageView alienIcon;
     private Thread calculateThread;
     private ArrayList<Alien> alienArr;
     private List list;
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         int z = 0;
         for (Alien alien: alienArr) {
             //String name = "alienIcon" + Integer.toString(z);
-            ImageView alienIcon = (ImageView) layoutInflater.inflate(R.layout.alien, null);
+            alienIcon = (ImageView) layoutInflater.inflate(R.layout.alien, null);
             alienIcon.setId(z);
             alienIcon.setScaleY(alien.scaleY);
             alienIcon.setScaleX(alien.scaleX);
@@ -180,15 +181,13 @@ public class MainActivity extends AppCompatActivity {
                 bulletIcon.setX(bullet.posX);
                 bullet.setOnScreen(true);
             }
-            /*
             for(Alien alien: alienArr){
                 if(bullet.posX <= alien.posX+10 && bullet.posX >= alien.posX){
                     if(bullet.posY <= alien.posX+10 && bullet.posX >= alien.posX){
-                        myLayout.removeView(findViewById(alien.id));
+                        myLayout.removeView(alienIcon.findViewById(alien.id));
                     }
                 }
             }
-            */
         }
     };
 
