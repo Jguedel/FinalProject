@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -103,9 +104,9 @@ public class MainActivity extends AppCompatActivity {
         //TOP ROW
         int j = 6;
         for (int i = 1; i<=6; i++) {
-            String name1 = Integer.toString(i);
+            int name1 = i;
             alienArr.add(new Alien(100*i,100, name1));
-            String name2 = Integer.toString(j);
+            int name2 = j;
             alienArr.add(new Alien(100*i,200,name2));
             j++;
         }
@@ -113,11 +114,13 @@ public class MainActivity extends AppCompatActivity {
         for (Alien alien: alienArr) {
             //String name = "alienIcon" + Integer.toString(z);
             ImageView alienIcon = (ImageView) layoutInflater.inflate(R.layout.alien, null);
+            alienIcon.setId(z);
             alienIcon.setScaleY(alien.scaleY);
             alienIcon.setScaleX(alien.scaleX);
             alienIcon.setX(alien.posX);
             alienIcon.setY(alien.posY);
             myLayout.addView(alienIcon, 0);
+            z++;
             Log.d("TAG", "createAliens: " + alien.posX);
         }
     }
@@ -177,13 +180,15 @@ public class MainActivity extends AppCompatActivity {
                 bulletIcon.setX(bullet.posX);
                 bullet.setOnScreen(true);
             }
+            /*
             for(Alien alien: alienArr){
-                if(bullet.posX <= alien.posX+10 && bullet.posX >= alien.posX-10){
-                    if(bullet.posY <= alien.posX+10 && bullet.posX >= alien.posX-10){
-                        alienArr.remove(alien);
+                if(bullet.posX <= alien.posX+10 && bullet.posX >= alien.posX){
+                    if(bullet.posY <= alien.posX+10 && bullet.posX >= alien.posX){
+                        myLayout.removeView(findViewById(alien.id));
                     }
                 }
             }
+            */
         }
     };
 

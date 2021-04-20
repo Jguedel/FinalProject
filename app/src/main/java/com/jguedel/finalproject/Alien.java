@@ -6,15 +6,15 @@ public class Alien {
     public int posX;
     public int posY;
     public boolean alive;
-    public String name;
+    public int id;
 
-    public Alien(int x, int y, String name) {
+    public Alien(int x, int y, int id) {
         this.alive = true;
         this.scaleX=4;
         this.scaleY=4;
         this.posX = x;
         this.posY = y;
-        this.name = name;
+        this.id = id;
     }
 
     /*
