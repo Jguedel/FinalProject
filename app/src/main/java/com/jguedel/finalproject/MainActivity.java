@@ -38,15 +38,16 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.game);
         //SET ELEMENTS
         player = new Player();
         bullet = new Bullet();
-        startBtn = findViewById(R.id.startBtn);
-
+        Left = findViewById(R.id.leftBtn);
+        Right = findViewById(R.id.rightBtn);
+        //startBtn = findViewById(R.id.startBtn);
         //SET INFLATER
         layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        myLayout = (ConstraintLayout) findViewById(R.id.game);
+        myLayout = findViewById(R.id.game);
         Log.d("TAG", "onCreate: " + myLayout);
 
         alienArr = new ArrayList();
@@ -69,39 +70,33 @@ public class MainActivity extends AppCompatActivity {
             Log.d("TAG", "createAliens: " + alien.posX);
         }
 
-        //SET LISTENER EVENT
-        startBtn.setOnClickListener(startGame);
-    }
+        //Player
+        playerIcon = (ImageView) layoutInflater.inflate(R.layout.ship, null);
+        playerIcon.setX(player.posX);
+        playerIcon.setY(player.posY);
+        playerIcon.setScaleY(player.scaleY);
+        playerIcon.setScaleX(player.scaleX);
+        myLayout.addView(playerIcon, 0);
 
+        //BULLET
+        createBullet();
+
+        //SET LISTENER EVENTS
+        Left.setOnClickListener(moveLeft);
+        Right.setOnClickListener(moveRight);
+        calculateThread = new Thread(calculateAction);
+        start();
+
+        //SET LISTENER EVENT
+        //startBtn.setOnClickListener(startGame);
+    }
+/*
     private final View.OnClickListener startGame = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             setContentView(R.layout.game);
             Left = findViewById(R.id.leftBtn);
             Right = findViewById(R.id.rightBtn);
-
-            //ALIEN
-            //createAliens();
-            /*
-            //TOP ROW
-            for (int i = 1; i<=6; i++) {
-                ImageView alienIcon = (ImageView) layoutInflater.inflate(R.layout.alien, null);
-                alienIcon.setScaleY(alien.scaleY);
-                alienIcon.setScaleX(alien.scaleX);
-                alienIcon.setX(alien.getposX(i));
-                alienIcon.setY(alien.posY);
-                myLayout.addView(alienIcon, 0);
-            }
-            //BOTTOM ROW
-            for (int i = 1; i<=6; i++) {
-                ImageView alienIcon = (ImageView) layoutInflater.inflate(R.layout.alien, null);
-                alienIcon.setScaleY(alien.scaleY);
-                alienIcon.setScaleX(alien.scaleX);
-                alienIcon.setX(alien.getposX(i));
-                alienIcon.setY(alien.posY*2);
-                myLayout.addView(alienIcon, 0);
-            }
-             */
 
             //Player
             playerIcon = (ImageView) layoutInflater.inflate(R.layout.ship, null);
@@ -144,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("TAG", "createAliens: " + alien.posX);
         }
     }
+*/
 
     public void createBullet(){
         bulletIcon = (ImageView) layoutInflater.inflate(R.layout.bullet, null);
@@ -202,11 +198,12 @@ public class MainActivity extends AppCompatActivity {
                 bullet.setOnScreen(true);
             }
 
-            for(int i = 0; i<=alienArr.size()-1;i++){
-                if(bullet.posX <= alienArr.get(i).posX+50 && bullet.posX >= alienArr.get(i).posX){
-                    if(bullet.posY <= alienArr.get(i).posY+50 && bullet.posY >= alienArr.get(i).posY){
+            for(int i = 0; i<=alienArr.size()-1;i++) {
+                if (bullet.posX <= alienArr.get(i).posX + 50 && bullet.posX >= alienArr.get(i).posX) {
+                    if (bullet.posY <= alienArr.get(i).posY + 50 && bullet.posY >= alienArr.get(i).posY) {
                         Log.d("hit", "handleMessage: " + i);
                         alienArr.get(i).alive = false;
+                        alienIcon.setX(1);
                     }
                 }
             }
