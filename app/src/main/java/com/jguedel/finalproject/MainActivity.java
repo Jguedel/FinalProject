@@ -213,9 +213,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-            for(int i = 0; i<=alienArr.size()-1;i++) {
                 myLayout.removeView(alienIcon);
-            }
         }
     };
 
