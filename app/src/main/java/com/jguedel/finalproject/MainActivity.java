@@ -45,8 +45,35 @@ public class MainActivity extends AppCompatActivity {
         bullet = new Bullet();
         startBtn = findViewById(R.id.startBtn);
 
+        layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        myLayout = (ConstraintLayout) findViewById(R.id.game);
+        Log.d("TAG", "onCreate: "+ myLayout);
         //SET LISTENER EVENT
         startBtn.setOnClickListener(startGame);
+
+        alienArr = new ArrayList();
+        //TOP ROW
+        int j = 6;
+        for (int i = 1; i<=6; i++) {
+            int name1 = i;
+            alienArr.add(new Alien(100*i,100, name1));
+            int name2 = j;
+            alienArr.add(new Alien(100*i,200,name2));
+            j++;
+        }
+        int z = 0;
+        for (Alien alien: alienArr) {
+            //String name = "alienIcon" + Integer.toString(z);
+            alienIcon = (ImageView) layoutInflater.inflate(R.layout.alien, null);
+            alienIcon.setId(z);
+            alienIcon.setScaleY(alien.scaleY);
+            alienIcon.setScaleX(alien.scaleX);
+            alienIcon.setX(alien.posX);
+            alienIcon.setY(alien.posY);
+            myLayout.addView(alienIcon, 0);
+            z++;
+            Log.d("TAG", "createAliens: " + alien.posX);
+        }
     }
 
     private final View.OnClickListener startGame = new View.OnClickListener() {
@@ -56,8 +83,8 @@ public class MainActivity extends AppCompatActivity {
             Left = findViewById(R.id.leftBtn);
             Right = findViewById(R.id.rightBtn);
             //SET INFLATER
-            layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            myLayout = (ConstraintLayout) findViewById(R.id.game);
+
+
             //ALIEN
             createAliens();
             /*
@@ -101,29 +128,7 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void createAliens(){
-        alienArr = new ArrayList();
-        //TOP ROW
-        int j = 6;
-        for (int i = 1; i<=6; i++) {
-            int name1 = i;
-            alienArr.add(new Alien(100*i,100, name1));
-            int name2 = j;
-            alienArr.add(new Alien(100*i,200,name2));
-            j++;
-        }
-        int z = 0;
-        for (Alien alien: alienArr) {
-            //String name = "alienIcon" + Integer.toString(z);
-            alienIcon = (ImageView) layoutInflater.inflate(R.layout.alien, null);
-            alienIcon.setId(z);
-            alienIcon.setScaleY(alien.scaleY);
-            alienIcon.setScaleX(alien.scaleX);
-            alienIcon.setX(alien.posX);
-            alienIcon.setY(alien.posY);
-            myLayout.addView(alienIcon, 0);
-            z++;
-            Log.d("TAG", "createAliens: " + alien.posX);
-        }
+
     }
 
     public void createBullet(){
@@ -182,9 +187,9 @@ public class MainActivity extends AppCompatActivity {
                 bullet.setOnScreen(true);
             }
             for(Alien alien: alienArr){
-                if(bullet.posX <= alien.posX+10 && bullet.posX >= alien.posX){
-                    if(bullet.posY <= alien.posX+10 && bullet.posX >= alien.posX){
-                        myLayout.removeView(alienIcon.findViewById(alien.id));
+                if(bullet.posX <= alien.posX+50 && bullet.posX >= alien.posX){
+                    if(bullet.posY <= alien.posX+50 && bullet.posX >= alien.posX){
+                        alienIcon.findViewById(alien.id).setX(-200);
                     }
                 }
             }
