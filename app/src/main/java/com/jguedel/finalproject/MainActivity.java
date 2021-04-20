@@ -85,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
         Left.setOnClickListener(moveLeft);
         Right.setOnClickListener(moveRight);
         calculateThread = new Thread(calculateAction);
-        start();
 
         //SET LISTENER EVENT
         //startBtn.setOnClickListener(startGame);
@@ -148,9 +147,17 @@ public class MainActivity extends AppCompatActivity {
         myLayout.addView(bulletIcon,1);
     }
 
-    protected void start() {
+    protected void onResume() {
         calculateThread.start();
         super.onResume();
+    }
+    protected void onPause(){
+        finish();
+        super.onPause();
+    }
+    protected void onDestroy() {
+        finish();
+        super.onDestroy();
     }
 
     //MOVE PLAYER LEFT
@@ -203,9 +210,11 @@ public class MainActivity extends AppCompatActivity {
                     if (bullet.posY <= alienArr.get(i).posY + 50 && bullet.posY >= alienArr.get(i).posY) {
                         Log.d("hit", "handleMessage: " + i);
                         alienArr.get(i).alive = false;
-                        alienIcon.setX(1);
                     }
                 }
+            }
+            for(int i = 0; i<=alienArr.size()-1;i++) {
+                myLayout.removeView(alienIcon);
             }
         }
     };
