@@ -3,12 +3,12 @@ package com.jguedel.finalproject;
 public class Alien {
     public float scaleX;
     public float scaleY;
-    public int posX;
-    public int posY;
+    public float posX;
+    public float posY;
     public boolean alive;
     public int id;
 
-    public Alien(int x, int y, int id) {
+    public Alien(float x, float y, int id) {
         this.alive = true;
         this.scaleX=4;
         this.scaleY=4;
@@ -26,9 +26,9 @@ public class Alien {
         this.posY = y;
     }
      */
-    public float getposX(int i) {
-        float X = posX * i;
-        return X;
+    public float move() {
+        posY += .5;
+        return posY;
     }
 
 }

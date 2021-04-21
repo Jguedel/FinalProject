@@ -25,7 +25,6 @@ public class Bullet {
     }
 
     public float move(float y) {
-        Log.d("TAG", "move: "+ onScreen);
         posY = y - 10;
         if (posY<=-200){
             posY = playerY;

@@ -5,10 +5,12 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import java.lang.InterruptedException;
 import java.util.ArrayList;
 
@@ -180,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
     private final View.OnClickListener moveLeft = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            player.move(-10);
+            player.move(-25);
             playerIcon.setX(player.posX);
             bullet.setPlayerX(player.posX);
         }
@@ -190,11 +192,13 @@ public class MainActivity extends AppCompatActivity {
     private final View.OnClickListener moveRight = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            player.move(10);
+            player.move(25);
             playerIcon.setX(player.posX);
             bullet.setPlayerX(player.posX);
         }
     };
+
+
 
     //**********************************Thread*********************************
     private Runnable calculateAction = new Runnable(){
@@ -204,6 +208,9 @@ public class MainActivity extends AppCompatActivity {
              try {
                  while(true) {
                      bullet.move(bullet.posY);
+                     for(Alien alien: alienArr){
+                         alienArr.get(alien.id).move();
+                     }
                      Thread.sleep(10);
                      threadHandler.sendEmptyMessage(0);
                  }
@@ -221,19 +228,27 @@ public class MainActivity extends AppCompatActivity {
             //CHECK IF BULLET HITS ALIEN
             for(Alien alien: alienArr){
                 if((bullet.posX <= alien.posX+65 && bullet.posX >= alien.posX) && (bullet.posY <= alien.posY+60 && bullet.posY >= alien.posY)){
-                        alienList.get(alien.id).setX(-200);
-                        alienArr.get(alien.id).setPosX(-200);
+                        alienList.get(alien.id).setX(-1000);
+                        alienArr.get(alien.id).setPosX(-1000);
                         bullet.setOnScreen(false);
                 }
             }
 
             //CHECK IF ALL ALIENS ARE DEAD
             for(Alien alien: alienArr){
+                alienList.get(alien.id).setY(alien.posY);
+                if (alien.posY+130 >= player.posY){
+                    setContentView(R.layout.endgame);
+                    TextView input = findViewById(R.id.endText);
+                    input.setText("Invaders Have Defeated You!!!");
+                }
                 if(alien.posX <= 0){
                     count++;
-                }
-                if(count ==alienArr.size()){
-                    setContentView(R.layout.endgame);
+                    if(count ==alienArr.size()){
+                        setContentView(R.layout.endgame);
+                        TextView input = findViewById(R.id.endText);
+                        input.setText("You Defeated The Invaders!!!");
+                    }
                 }
             }
 
@@ -244,5 +259,4 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
-
 }
