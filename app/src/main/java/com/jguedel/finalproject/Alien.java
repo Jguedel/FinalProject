@@ -17,10 +17,11 @@ public class Alien {
         this.id = id;
     }
 
-    /*
+
     public void setPosX(int x){
         this.posX = x;
     }
+    /*
     public void  setPosY(int y){
         this.posY = y;
     }

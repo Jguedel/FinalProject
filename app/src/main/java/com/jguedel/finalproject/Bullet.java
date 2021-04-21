@@ -1,5 +1,7 @@
 package com.jguedel.finalproject;
 
+import android.util.Log;
+
 public class Bullet {
     public float posX;
     public float posY;
@@ -23,11 +25,16 @@ public class Bullet {
     }
 
     public float move(float y) {
+        Log.d("TAG", "move: "+ onScreen);
         posY = y - 10;
         if (posY<=-200){
             posY = playerY;
             posX = playerX;
-            onScreen = false;
+        }
+        if(onScreen== false){
+            posX =playerX;
+            posY =playerY;
+            onScreen = true;
         }
         return posY;
     }
