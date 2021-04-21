@@ -6,20 +6,17 @@ public class Alien {
     public int posX;
     public int posY;
     public boolean alive;
-    public String name;
+    public int id;
 
-    public Alien(int x, int y, String name, boolean life) {
-        this.alive = life;
+    public Alien(int x, int y, int id) {
+        this.alive = true;
         this.scaleX=4;
         this.scaleY=4;
         this.posX = x;
         this.posY = y;
-        this.name = name;
+        this.id = id;
     }
 
-    public void setAlive(boolean ans){
-        this.alive = ans;
-    }
     /*
     public void setPosX(int x){
         this.posX = x;
@@ -29,7 +26,7 @@ public class Alien {
     }
      */
     public float getposX(int i) {
-        float X = this.posX * i;
+        float X = posX * i;
         return X;
     }
 
