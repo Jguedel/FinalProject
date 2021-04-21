@@ -35,4 +35,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <ImageView
+        android:id="@+id/alienIcon0"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:srcCompat="@mipmap/alien"
+        tools:layout_editor_absoluteX="6dp" />
+
+    <ImageView
+        android:id="@+id/alienIcon1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:srcCompat="@mipmap/alien"
+        tools:layout_editor_absoluteX="139dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
